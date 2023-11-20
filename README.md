@@ -1,4 +1,4 @@
-# Title: face-recognition with python
+# Face Recognition with python
 
 Performs facial and hand recognition.
 
