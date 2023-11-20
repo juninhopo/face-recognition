@@ -1,0 +1,12 @@
+{
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.python",
+    "editor.formatOnType": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports.ruff": true
+    }
+  },
+  "python.formatting.blackArgs": ["--line-length", "132"],
+  "python.formatting.provider": "black",
+  "editor.formatOnSave": true
+}
