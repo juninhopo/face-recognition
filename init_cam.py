@@ -29,38 +29,39 @@ def initCam():
 
     rgb_frame = np.ascontiguousarray(imagem[:, :, ::-1])
 
-    # local_of_faces = fr.face_locations(rgb_frame)
-    # unknown_faces = fr.face_encodings(rgb_frame, local_of_faces)
+    # The problem is here
+    local_of_faces = fr.face_locations(rgb_frame)
+    unknown_faces = fr.face_encodings(rgb_frame, local_of_faces)
 
     if list_faces.detections:
       for rosto in list_faces.detections:
 
         # Different draw to recognition
-        drawing.draw_detection(imagem, rosto)
+        # drawing.draw_detection(imagem, rosto)
         
         # There is a problem in the solution below
         # local_of_faces and unknown_faces are very slow
         # and makes the webcam slow
-        # for (top, right, bottom, left), unknown_face in zip(local_of_faces, unknown_faces):
-        #   results = fr.compare_faces(familiar_faces, unknown_face)
+        for (top, right, bottom, left), unknown_face in zip(local_of_faces, unknown_faces):
+          results = fr.compare_faces(familiar_faces, unknown_face)
 
-        #   face_distances = fr.face_distance(familiar_faces, unknown_face)
+          face_distances = fr.face_distance(familiar_faces, unknown_face)
 
-        #   best_match = np.argmin(face_distances)
-        #   if results[best_match]:
-        #     name = name_of_faces[best_match]
-        #   else:
-        #     name = "Desconhecido"
+          best_match = np.argmin(face_distances)
+          if results[best_match]:
+            name = name_of_faces[best_match]
+          else:
+            name = "Desconhecido"
 
-        #   # Around the face
-        #   cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
+          # Around the face
+          cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
 
-        #   # Below
-        #   cv2.rectangle(frame, (left, bottom -35), (right, bottom), (0, 0, 255), cv2.FILLED)
-        #   font = cv2.FONT_HERSHEY_SIMPLEX
+          # Below
+          cv2.rectangle(frame, (left, bottom -35), (right, bottom), (0, 0, 255), cv2.FILLED)
+          font = cv2.FONT_HERSHEY_SIMPLEX
 
-        #   # Text
-        #   cv2.putText(frame, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
+          # Text
+          cv2.putText(frame, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
 
     # Hand recognition code - search a usability
     rgb_frame = cv2.cvtColor(imagem, cv2.COLOR_BGR2RGB)
