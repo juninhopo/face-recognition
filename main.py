@@ -1,3 +1,3 @@
-from initCam import initCam
+from init_cam import initCam
 
 initCam()
