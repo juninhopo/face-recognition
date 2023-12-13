@@ -3,7 +3,7 @@
     "editor.defaultFormatter": "ms-python.python",
     "editor.formatOnType": true,
     "editor.codeActionsOnSave": {
-      "source.organizeImports.ruff": true
+      "source.organizeImports.ruff": "explicit"
     }
   },
   "python.formatting.blackArgs": ["--line-length", "132"],

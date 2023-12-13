@@ -12,3 +12,7 @@ Performs facial and hand recognition.
     local_of_faces = fr.face_locations(rgb_frame)
     unknown_faces = fr.face_encodings(rgb_frame, local_of_faces)
 ```
+
+## Resolution to problem
+
+Tensor flow using CPU, need install to [GPU](https://github.com/deganza/Install-TensorFlow-on-Mac-M1-GPU/blob/main/Install-TensorFlow-on-Mac-M1-GPU.ipynb)

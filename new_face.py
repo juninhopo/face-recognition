@@ -54,4 +54,14 @@ def get_faces():
     })
     names_of_faces.append("Jade - Dog") 
 
+  nina1 = new_face("./faces/nina.png")
+  if(nina1[0]):
+    familiar_faces.append(nina1[1][0])
+    face_id = uuid.uuid4()
+    id_of_faces.append(face_id)
+    print({
+      face_id
+    })
+    names_of_faces.append("Nina - Dog") 
+
   return familiar_faces, names_of_faces, id_of_faces

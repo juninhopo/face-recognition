@@ -1,3 +1,4 @@
+import time
 import numpy as np
 import cv2
 import mediapipe as mp
@@ -20,11 +21,10 @@ hands = mp_hands.Hands()
 
 def initCam():
   while webcam.isOpened():
-    validation, frame = webcam.read()
+    validation, imagem = webcam.read()
     if not validation:
       break
-    
-    imagem = frame
+
     list_faces = face_recognizer.process(imagem)
 
     rgb_frame = np.ascontiguousarray(imagem[:, :, ::-1])
@@ -54,14 +54,17 @@ def initCam():
             name = "Desconhecido"
 
           # Around the face
-          cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
+          cv2.rectangle(imagem, (left, top), (right, bottom), (0, 0, 255), 2)
 
           # Below
-          cv2.rectangle(frame, (left, bottom -35), (right, bottom), (0, 0, 255), cv2.FILLED)
+          cv2.rectangle(imagem, (left, bottom -35), (right, bottom), (0, 0, 255), cv2.FILLED)
           font = cv2.FONT_HERSHEY_SIMPLEX
 
           # Text
-          cv2.putText(frame, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
+          cv2.putText(imagem, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
+
+    print(time.time())
+    # continue
 
     # Hand recognition code - search a usability
     rgb_frame = cv2.cvtColor(imagem, cv2.COLOR_BGR2RGB)
@@ -70,7 +73,7 @@ def initCam():
     if results.multi_hand_landmarks:
       for hand_landmarks in results.multi_hand_landmarks:
           for landmark in hand_landmarks.landmark:
-              x, y = int(landmark.x * frame.shape[1]), int(landmark.y * frame.shape[0])
+              x, y = int(landmark.x * imagem.shape[1]), int(landmark.y * imagem.shape[0])
               cv2.circle(imagem, (x, y), 5, (0, 255, 0), -1)
 
     cv2.imshow("Your Webcam", imagem)
